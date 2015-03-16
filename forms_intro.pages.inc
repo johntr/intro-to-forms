@@ -3,7 +3,7 @@
  * Implements hook_form().
  */
 function forms_intro_form($node, &$form_state) {
-  $type = node_type_get_type($node);
+
   $form = array();
 
   $form['contact'] = array(
