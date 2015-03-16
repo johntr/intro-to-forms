@@ -1,0 +1,4 @@
+name = Intro to Forms
+description = "An intro module to show off forms."
+core = 7.x
+package = How to
