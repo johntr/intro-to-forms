@@ -9,6 +9,7 @@ function forms_intro_menu(){
         'access arguments' => array('access content'),
         'page callback' => 'drupal_get_form',
         'page arguments'=>array('form_intro_form'));
+        'file' => 'forms_intro.admin.inc'
 
   return $items;
 }
