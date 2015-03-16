@@ -3,7 +3,7 @@
  * Implements hook_form().
  */
 function forms_intro_form($node, &$form_state) {
-  $type = node_type_get_type($node);
+
   $form = array();
 
   $form['contact'] = array(
@@ -48,6 +48,18 @@ function forms_intro_form($node, &$form_state) {
         '#type'=>'submit',
         '#value'=>t('Submit')
         );
+
+  return $form;
+}
+
+/**
+ * Implements hook_form().
+ */
+function forms_intro_form_validate($form, &$form_state) {
+
+  if(filter_var($form_state['values']['email'], FILTER_VALIDATE_EMAIL) == false) {
+    form_set_error('email','Email field does not contain a vaild email address');
+  }
 
   return $form;
 }
