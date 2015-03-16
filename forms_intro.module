@@ -4,12 +4,14 @@
  * @return items
  */
 function forms_intro_menu(){
+
   $items['form'] = array(
         'type' => MENU_CALLBACK,
         'access arguments' => array('access content'),
         'page callback' => 'drupal_get_form',
-        'page arguments'=>array('form_intro_form'));
-        'file' => 'forms_intro.admin.inc'
+        'page arguments'=>array('forms_intro_form'),
+        'file' => 'forms_intro.pages.inc'
+        );
 
   return $items;
 }
