@@ -1,0 +1,14 @@
+<?php
+/**
+ * Drupal menu for our form
+ * @return items
+ */
+function forms_intro_menu(){
+  $items['form'] = array(
+        'type' => MENU_CALLBACK,
+        'access arguments' => array('access content'),
+        'page callback' => 'drupal_get_form',
+        'page arguments'=>array('form_intro_form'));
+
+  return $items;
+}
