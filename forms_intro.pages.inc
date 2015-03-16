@@ -8,8 +8,8 @@ function forms_intro_form($node, &$form_state) {
 
   $form['contact'] = array(
     '#type' => 'fieldset',
-    '#title' => t('Please enter your info.'),
-    '#description' => t('If you would like to contact us.')
+    '#title' => t('Contact us.'),
+    '#description' => t('If you would like to contact us. Please enter your info below.')
   );
 
   $form['contact']['first_name']=array(
@@ -27,6 +27,11 @@ function forms_intro_form($node, &$form_state) {
       '#type'=>'textfield',
       '#title'=>t('Enter your email'),
       '#description'=>t('Please enter email.')
+    );
+    $form['contact']['body']=array(
+      '#type'=>'textarea',
+      '#title'=>t('Message'),
+      '#description'=>t('Please enter your message here.')
     );
 
     $form['submit']=array(
