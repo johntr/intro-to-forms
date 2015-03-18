@@ -71,42 +71,20 @@ function forms_intro_form_validate($form, &$form_state) {
  */
 function forms_intro_form_submit($form, $form_state) {
 
-  $mandrill = new Mandrill('xv-O_PMc1N37IqdBfIhJqg');
+
   $name = $form_state['values']['first_name'] ." " . $form_state['values']['last_name'];
   $country = countyTranslate($form_state['values']['country']);
   $to = "jtredlich@gmail.com";
 
-  $message = "Information has been submitted from $name.<br />";
-  $message .= "It was submitted from $country.<br />";
-  $message .= "You can email them back at {$form_state['values']['email']}.<br />";
-  $message .= "There message was: <br />{$form_state['values']['email']}";
-
-  try{
-
-        $message = array(
-                'subject' => 'Email Information Request.',
-                'text' => $message,
-                'from_email' => 'jtredlich@gmail.com',
-                'from_name' => 'Yourself',
-                'to' => array(
-                        array(
-                                'email' => $to,
-                                'name' => $name, // optional
-                                'type' => 'to' //optional. Default is 'to'. Other options: cc & bcc
-                                )
-                ),
-        );
-
-    $result = $mandrill->messages->send($message);
-    //print_r($result); //only for debugging
-
-    }
-
-    catch(Mandrill_Error $e) {
-
-      echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
-      throw $e;
-    }
+  $message = "Information has been submitted from $name.\n";
+  $message .= "It was submitted from $country.\n";
+  $message .= "You can email them back at {$form_state['values']['email']}.\n";
+  $message .= "There message was: \n{$form_state['values']['body']}";
+  $params = array(
+            'subject' => "Information Request",
+            'body' => $message,
+    );
+  drupal_mail('forms_intro','mandrill',$to,language_default() ,$params,'jtredlich@gmail.com');
 
   drupal_set_message("Your form has been submitted.");
 }
