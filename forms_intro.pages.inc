@@ -63,3 +63,11 @@ function forms_intro_form_validate($form, &$form_state) {
 
   return $form;
 }
+
+/**
+ * Implements hook_form_submit().
+ * @return Void
+ */
+function forms_intro_form_submit($form, $form_state) {
+  drupal_set_message("Your form has been submitted.");
+}
