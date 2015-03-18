@@ -1,4 +1,7 @@
 <?php
+
+//require_once 'sites/all/libraries/mandrill/src/Mandrill.php';
+require_once (libraries_get_path('mandrill') .'/src/Mandrill.php');
 /**
  * Implements hook_form().
  */
@@ -66,8 +69,66 @@ function forms_intro_form_validate($form, &$form_state) {
 
 /**
  * Implements hook_form_submit().
- * @return Void
  */
 function forms_intro_form_submit($form, $form_state) {
+
+  $mandrill = new Mandrill('xv-O_PMc1N37IqdBfIhJqg');
+  $name = $form_state['values']['first_name'] ." " . $form_state['values']['last_name'];
+  $country = countyTranslate($form_state['values']['country']);
+  $to = "jtredlich@gmail.com";
+
+  $message = "Information has been submitted from $name.<br />";
+  $message .= "It was submitted from $country.<br />";
+  $message .= "You can email them back at {$form_state['values']['email']}.<br />";
+  $message .= "There message was: <br />{$form_state['values']['email']}";
+
+  try{
+
+        $message = array(
+                'subject' => 'Email Information Request.',
+                'text' => $message,
+                'from_email' => 'jtredlich@gmail.com',
+                'from_name' => 'Yourself',
+                'to' => array(
+                        array(
+                                'email' => $to,
+                                'name' => $name, // optional
+                                'type' => 'to' //optional. Default is 'to'. Other options: cc & bcc
+                                )
+                ),
+        );
+
+    $result = $mandrill->messages->send($message);
+    //print_r($result); //only for debugging
+
+    }
+
+    catch(Mandrill_Error $e) {
+
+      echo 'A mandrill error occurred: ' . get_class($e) . ' - ' . $e->getMessage();
+      throw $e;
+    }
+
   drupal_set_message("Your form has been submitted.");
+}
+
+function countyTranslate($c) {
+
+  switch ($c){
+    case 0:
+      return "Canada";
+      break;
+    case 1:
+      return "Mexico";
+      break;
+    case 2:
+      return "UK";
+      break;
+    case 3:
+      return "USA";
+      break;
+    default;
+      return"Invalid Country";
+      break;
+  }
 }
