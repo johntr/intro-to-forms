@@ -1,7 +1,6 @@
 <?php
-
-//require_once 'sites/all/libraries/mandrill/src/Mandrill.php';
 require_once (libraries_get_path('mandrill') .'/src/Mandrill.php');
+
 /**
  * Implements hook_form().
  */
