@@ -17,6 +17,7 @@ function forms_intro_menu(){
 }
 
 function forms_intro_mail($key, &$message, $params) {
+
   switch($key) {
     case 'mandrill':
       $message['subject'] = $params['subject'];
