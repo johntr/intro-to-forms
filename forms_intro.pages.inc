@@ -74,7 +74,7 @@ function forms_intro_form_submit($form, $form_state) {
 
   $name = $form_state['values']['first_name'] ." " . $form_state['values']['last_name'];
   $country = countyTranslate($form_state['values']['country']);
-  $to = "jtredlich@gmail.com";
+  $to = $form_state['values']['email'];
 
   $message = "Information has been submitted from $name.\n";
   $message .= "It was submitted from $country.\n";

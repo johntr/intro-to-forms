@@ -15,3 +15,12 @@ function forms_intro_menu(){
 
   return $items;
 }
+
+function forms_intro_mail($key, &$message, $params) {
+  switch($key) {
+    case 'mandrill':
+      $message['subject'] = $params['subject'];
+      $message['body'] = array(0=>t($params['body']));
+      break;
+  }
+}
